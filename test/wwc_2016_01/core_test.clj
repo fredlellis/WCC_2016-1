@@ -4,17 +4,12 @@
             [wwc-2016-01.core :refer :all]))
 
 
-(def vector-of-vectors [[1 2 3] [] [1] []])
-
-(def populated-vector?
-  )
-
-(defn solucao-fred [max array]
-  (first (sorted-set-by (fn [x y]
-                          (> (reduce + x) (reduce + y)))
-                        (filter (fn
-                                  [item]
-                                  (< (reduce + item) max)) (clojure.math.combinatorics/subsets array)))))
+;(defn solucao-min [max array]
+;  (first (sorted-set-by (fn [x y]
+;                          (> (reduce + x) (reduce + y)))
+;                        (filter (fn
+;                                  [item]
+;                                  (< (reduce + item) max)) (clojure.math.combinatorics/subsets array)))))
 
 
 (defn wwwc-01 [x array]
