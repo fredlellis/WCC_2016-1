@@ -2,15 +2,16 @@
   (:require [clojure.test :refer :all]
             [clojure.math.combinatorics :refer :all]))
 
-
+;;Twitter
 (defn m [x y](->>(subsets y)(filter(fn[i](<(reduce + i)x)))(apply sorted-set-by #(>(reduce + %1)(reduce + %2)))(first)))
 
+;;Solução usando filter
 (defn wwwc-01-filter [max array]
   (first (apply sorted-set-by (fn [x y] (> (reduce + x) (reduce + y)))
                 (filter (fn [item] (< (reduce + item) max))
                         (subsets array)))))
 
-
+;;Solução usando Recursividade
 (defn wwwc-01-loop [x array]
   (loop
     [combinacoes (subsets array)
@@ -29,7 +30,7 @@
     (is (= (wwwc-01-filter 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))
     (is (= (m 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))))
 
-
+;;benchmarks
 (do
   (time (wwwc-01-filter 29 [2, 8, 3, 9, 11]))
   (time (wwwc-01-loop 29 [2, 8, 3, 9, 11]))
