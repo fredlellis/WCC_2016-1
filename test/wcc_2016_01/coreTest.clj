@@ -3,7 +3,7 @@
             [clojure.math.combinatorics :refer :all]))
 
 ;;Twitter
-(defn m [x y](->>(subsets y)(filter(fn[i](<(reduce + i)x)))(apply sorted-set-by #(>(reduce + %1)(reduce + %2)))(first)))
+(defn m [x y](->>(subsets y)(filter #(<(reduce + %)x))(apply sorted-set-by #(>(reduce + %1)(reduce + %2)))(first)))
 
 ;;Solução usando filter
 (defn wwwc-01-filter [max array]
@@ -32,6 +32,6 @@
 
 ;;benchmarks
 (do
-  (time (wwwc-01-filter 29 [2, 8, 3, 9, 11]))
-  (time (wwwc-01-loop 29 [2, 8, 3, 9, 11]))
-  (time (m 29 [2, 8, 3, 9, 11])))
+  (time (wwwc-01-filter 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 12.453969 msecs"
+  (time (wwwc-01-loop 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 1.33059 msecs"
+  (time (m 29 [2, 8, 3, 9, 11]))) ;;"Elapsed time: 2.045518 msecs"
