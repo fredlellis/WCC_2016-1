@@ -3,16 +3,16 @@
             [clojure.math.combinatorics :refer :all]))
 
 ;;Twitter
-(defn m [x y](->>(subsets y)(filter #(<(reduce + %)x))(apply sorted-set-by #(>(reduce + %1)(reduce + %2)))(first)))
+(defn t [x y](->> (subsets y) (filter #(< (reduce + %) x)) (apply sorted-set-by #(> (reduce + %1) (reduce + %2))) (first)))
 
 ;;Solução usando filter
-(defn wwwc-01-filter [max array]
+(defn wcc-01-filter [max array]
   (first (apply sorted-set-by (fn [x y] (> (reduce + x) (reduce + y)))
                 (filter (fn [item] (< (reduce + item) max))
                         (subsets array)))))
 
 ;;Solução usando Recursividade
-(defn wwwc-01-loop [x array]
+(defn wcc-01-loop [x array]
   (loop
     [combinacoes (subsets array)
      array-maior-menores []]
@@ -24,14 +24,14 @@
 
 (deftest a-test
   (testing "Maior menor"
-    (is (= (wwwc-01-loop 29 [2, 8, 3, 9, 11]) [8 9 11]))
-    (is (= (wwwc-01-filter 29 [2, 8, 3, 9, 11]) [8 9 11]))
-    (is (= (wwwc-01-filter 29 [2, 8, 3, 9, 11, -4]) [8 9 11]))
-    (is (= (wwwc-01-filter 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))
-    (is (= (m 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))))
+    (is (= (wcc-01-loop 29 [2, 8, 3, 9, 11]) [8 9 11]))
+    (is (= (wcc-01-filter 29 [2, 8, 3, 9, 11]) [8 9 11]))
+    (is (= (wcc-01-filter 29 [2, 8, 3, 9, 11, -4]) [8 9 11]))
+    (is (= (wcc-01-filter 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))
+    (is (= (t 31 [2, 8, 3, 9, 11, -4, 34]) [-4 34]))))
 
 ;;benchmarks
 (do
-  (time (wwwc-01-filter 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 12.453969 msecs"
-  (time (wwwc-01-loop 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 1.33059 msecs"
-  (time (m 29 [2, 8, 3, 9, 11]))) ;;"Elapsed time: 2.045518 msecs"
+  (time (wcc-01-filter 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 12.453969 msecs"
+  (time (wcc-01-loop 29 [2, 8, 3, 9, 11])) ;;"Elapsed time: 1.33059 msecs"
+  (time (t 29 [2, 8, 3, 9, 11]))) ;;"Elapsed time: 2.045518 msecs"
