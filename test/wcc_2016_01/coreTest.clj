@@ -1,4 +1,4 @@
-(ns wwc-2016-01.core-test
+(ns wcc-2016-01.coreTest
   (:require [clojure.test :refer :all]
             [clojure.math.combinatorics :refer :all]))
 
