@@ -1,4 +1,4 @@
-# wwc-2016-01
+# wcc-2016-01
 
 ====================
 You're given two inputs: a positive integer x and an array A of
